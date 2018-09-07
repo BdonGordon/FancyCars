@@ -56,6 +56,9 @@
     <Folder Include="src\models\" />
     <Folder Include="src\modules\" />
     <Folder Include="src\api\" />
+    <Folder Include="src\routes\Home\" />
+    <Folder Include="src\routes\Home\components\" />
+    <Folder Include="src\routes\Home\containers\" />
     <Folder Include="src\types\" />
     <Folder Include="src\store\" />
     <Folder Include="src\routes\" />
@@ -71,6 +74,10 @@
     <TypeScriptCompile Include="src\models\Car.ts" />
     <TypeScriptCompile Include="src\modules\car.ts" />
     <TypeScriptCompile Include="src\registerServiceWorker.ts" />
+    <TypeScriptCompile Include="src\routes\Home\components\Home.tsx" />
+    <TypeScriptCompile Include="src\routes\Home\containers\HomeContainer.tsx" />
+    <TypeScriptCompile Include="src\routes\Home\index.tsx" />
+    <TypeScriptCompile Include="src\routes\index.tsx" />
     <TypeScriptCompile Include="src\store\createStore.ts" />
     <TypeScriptCompile Include="src\store\reducers.ts" />
     <TypeScriptCompile Include="src\types\global.d.ts" />

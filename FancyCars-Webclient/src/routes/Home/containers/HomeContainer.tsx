@@ -19,7 +19,7 @@ export namespace HomeProps {
     export interface IProps extends IStateProps, IDispatchProps, IOwnProps { }
 
     export interface IState {
-
+        carList: Array<ICar>;
     }
 }
 

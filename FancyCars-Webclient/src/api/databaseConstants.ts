@@ -1,1 +1,1 @@
-export const CARS_SERVICE_URL: string = 'http://127.0.0.1:8000/fancycars/cars';
+export const CARS_SERVICE_URL: string = 'http://10.201.49.24:8000/fancycars/cars';

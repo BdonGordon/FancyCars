@@ -42,6 +42,7 @@
     <Content Include="public\index.html" />
     <Content Include="public\manifest.json" />
     <Content Include="src\App.css" />
+    <Content Include="src\assets\lambo.jpg" />
     <Content Include="src\core.css" />
     <Content Include="src\index.css" />
     <Content Include="src\logo.svg" />
@@ -51,10 +52,12 @@
     <Content Include="tslint.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\assets\" />
     <Folder Include="public\" />
     <Folder Include="src\" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\Header\" />
+    <Folder Include="src\components\Header\components\" />
     <Folder Include="src\containers\" />
     <Folder Include="src\layouts\" />
     <Folder Include="src\models\" />
@@ -71,6 +74,7 @@
     <TypeScriptCompile Include="src\api\databaseConstants.ts" />
     <TypeScriptCompile Include="src\App.test.tsx" />
     <TypeScriptCompile Include="src\App.tsx" />
+    <TypeScriptCompile Include="src\components\Header\components\Header.tsx" />
     <TypeScriptCompile Include="src\containers\AppContainer.tsx" />
     <TypeScriptCompile Include="src\index.tsx" />
     <TypeScriptCompile Include="src\layouts\CoreLayout.tsx" />

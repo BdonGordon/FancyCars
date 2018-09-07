@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo 'Hello'",
-    "start": "workon Dev-Server && python manage.py runserver"
+    "start": "workon Dev-Server && python manage.py runserver 10.201.49.24:8000"
   },
   "author": "Brandon Gordon",
   "license": "ISC"

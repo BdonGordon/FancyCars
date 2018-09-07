@@ -22,7 +22,6 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 });
             }
             else {
-                console.log("Hi");
             }
         });
     }
@@ -32,7 +31,13 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             return this.state.carList.map((car) => {
                 return (
                     <div key={car.id} className="car-div">
-                        {car.name}
+                        {/*height will be adjusted accordingly based on the phone*/}
+                        <div className="car-image" style={{ height: 80 }}>
+                            
+                        </div>
+                        <div className="car-content">
+                            {car.name}
+                        </div>
                     </div>
                 );
             });
@@ -49,6 +54,11 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             <div className='home-layout'>
                 <div className='header-photo'>
                     <img src={require('../../../assets/lambo.jpg')} style={{ width: '100%', height: '20%' }} />
+                </div>
+
+                <div className='option-div'>
+                    <h6>Sort By:</h6>
+                    <button>Test</button>
                 </div>
 
                 <div className='car-show'>

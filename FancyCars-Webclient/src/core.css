@@ -60,22 +60,38 @@ body, html {
     width: 100%;
 }
 
+.option-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
 .car-show {
     display: flex;
     flex-direction: column;
     width: 99%;
-    padding-right: 12px; 
+    padding-right: 12px;
     padding-left: 8px;
     flex: 12;
 }
 
 .car-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     border-width: 4px;
     border: solid;
     margin-bottom: 8px;
-    justify-content: space-between;
     flex: 4;
+}
+
+.car-image {
+    background-color: aquamarine;
+    flex: 1;
+}
+
+.car-content {
+    background-color: indianred;
+    flex: 3.5;
 }

@@ -21,8 +21,8 @@ class CoreLayout extends React.Component<ICoreLayoutProps, IState> {
                 <div className="core-layout__viewport" style={{ margin: 0, padding: 0, height: '100%' }}>
                     <div className="layoutMain">
                         <div className="layoutHeader">
-                            <div style={{ textAlign: 'center' }}>
-                                <text>Header</text>
+                            <div style={{ textAlign: 'center', backgroundColor: 'white', height: '100%', padding: 25}}>
+                                <text color='#FFFFFF'>Header</text>
                             </div>
                         </div>
 

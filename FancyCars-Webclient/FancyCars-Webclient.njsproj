@@ -43,7 +43,6 @@
     <Content Include="public\manifest.json" />
     <Content Include="src\App.css" />
     <Content Include="src\core.css" />
-    <Content Include="src\core.scss" />
     <Content Include="src\index.css" />
     <Content Include="src\logo.svg" />
     <Content Include="tsconfig.json" />
@@ -55,6 +54,7 @@
     <Folder Include="public\" />
     <Folder Include="src\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\components\Header\" />
     <Folder Include="src\containers\" />
     <Folder Include="src\layouts\" />
     <Folder Include="src\models\" />

@@ -1,11 +1,16 @@
 import { connect } from 'react-redux';
 import Home from '../components/Home';
+import { ICar, ICarAvailable, IRetrieveCarsAction } from '../../../models/Car';
+import { retrieveCars, checkAvailability } from '../../../modules/car';
 
 export namespace HomeProps {
     export interface IStateProps {
+        cars: Array<ICar>;
+        available: string;
     }
 
     export interface IDispatchProps {
+        retrieveCars: () => Promise<Array<IRetrieveCarsAction>>;
     }
 
     export interface IOwnProps {
@@ -20,13 +25,14 @@ export namespace HomeProps {
 
 function mapStateToProps(state: any) {
     return {
-
+        cars: state.cars.cars,
+        available: state.cars.available
     };
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
-
+        retrieveCars: () => dispatch(retrieveCars())
     };
 }
 

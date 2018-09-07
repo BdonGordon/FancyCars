@@ -10,6 +10,14 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         super(props);
     }
 
+    componentDidMount() {
+        console.log("mounted");
+
+        this.props.retrieveCars().then((response) => {
+            console.log(this.props.cars.length);
+        });
+    }
+
     render() {
         return (
             <div style={{ textAlign: 'center' }}>

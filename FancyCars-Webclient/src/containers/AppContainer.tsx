@@ -13,7 +13,7 @@ class AppContainer extends React.Component<IAppContainer, {}> {
 
         return (
             <Provider store={store}>
-                <div style={{ height: '100%' }}>
+                <div className="body" style={{ backgroundColor: 'red' }}>
                     <CoreLayout />
                 </div>
             </Provider>

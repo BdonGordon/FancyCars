@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Route, NavLink, Link } from 'react-router-dom';
-//import Routes from '../routes/index';
+import Routes from '../routes/index';
 
 export interface ICoreLayoutProps {
 }
@@ -20,10 +20,15 @@ class CoreLayout extends React.Component<ICoreLayoutProps, IState> {
             <BrowserRouter>
                 <div className="core-layout__viewport" style={{ margin: 0, padding: 0, height: '100%' }}>
                     <div className="layoutMain">
-                        <div className="layoutRoutes">
-                            <text>Hi</text>
+                        <div className="layoutHeader">
+                            <div style={{ textAlign: 'center' }}>
+                                <text>Header</text>
+                            </div>
                         </div>
 
+                        <div className="layoutRoutes">
+                            <Routes />
+                        </div>
                     </div>
                 </div>
             </BrowserRouter>

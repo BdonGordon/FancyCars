@@ -10,7 +10,7 @@ export namespace HomeProps {
     }
 
     export interface IDispatchProps {
-        retrieveCars: () => Promise<Array<IRetrieveCarsAction>>;
+        retrieveCars: () => Promise<IRetrieveCarsAction>;
     }
 
     export interface IOwnProps {

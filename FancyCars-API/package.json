@@ -1,0 +1,12 @@
+{
+  "name": "fancycars-api",
+  "version": "1.0.0",
+  "description": "Fancy Cars Stub API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Hello'",
+    "start": "workon Dev-Server && python manage.py runserver"
+  },
+  "author": "Brandon Gordon",
+  "license": "ISC"
+}

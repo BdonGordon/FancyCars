@@ -14,14 +14,16 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         console.log("mounted");
 
         this.props.retrieveCars().then((response) => {
-            console.log(this.props.cars.length);
+            response.payload.cars.map((car) => {
+                console.log(car);
+            });
         });
     }
 
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
-                <text>Home</text>
+                Home
             </div>
         );
     }

@@ -68,8 +68,7 @@
     <Folder Include="src\routes\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\api\CarsService.ts" />
-    <TypeScriptCompile Include="src\api\AvailabilityService.ts" />
+    <TypeScriptCompile Include="src\api\databaseConstants.ts" />
     <TypeScriptCompile Include="src\App.test.tsx" />
     <TypeScriptCompile Include="src\App.tsx" />
     <TypeScriptCompile Include="src\containers\AppContainer.tsx" />

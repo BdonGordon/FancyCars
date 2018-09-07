@@ -1,5 +1,6 @@
 import { ICar, ICarAvailable, IRetrieveCarsAction } from '../models/Car';
 import { CALL_API } from 'redux-api-middleware';
+import { CARS_SERVICE_URL } from '../api/databaseConstants';
 
 const GET_CARS_REQUEST = 'cars/GET_CARS_REQUEST';
 const GET_CARS_RESPONSE = 'cars/GET_CARS_RESPONSE';
@@ -24,10 +25,10 @@ const initialState: ICarState = {
 };
 
 //https://dashboard.ngrok.com/get-started#
-export function retrieveCars(): CALL_API {
+export function retrieveCars(): ICallApiAction {
     return {
         [CALL_API]: {
-            endpoint: 'http://localhost:8000/cars',
+            endpoint: CARS_SERVICE_URL,
             method: 'GET',
             types: [GET_CARS_REQUEST, GET_CARS_RESPONSE, GET_CARS_ERROR],
             headers: {
@@ -37,7 +38,7 @@ export function retrieveCars(): CALL_API {
     };
 }
 
-export function checkAvailability(carID: number): CALL_API {
+export function checkAvailability(carID: number): ICallApiAction {
     return {
         [CALL_API]: {
             endpoint: '/availability?id=',
@@ -47,7 +48,7 @@ export function checkAvailability(carID: number): CALL_API {
                 'Content-Type': 'application/json'
             }
         }
-    }
+    };
 }
 
 export function carsReducer(state: ICarState = initialState, action: ICarActions) {

@@ -18,7 +18,20 @@ class CarsService(APIView):
         cars.append(carOne.createCarObject())
         cars.append(carTwo.createCarObject())
 
-        return JsonResponse({'cars': cars})
+        response = JsonResponse({'cars': cars})
+
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Credentials"] = True
+        response["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT"
+        #response["Access-Control-Allow-Headers"] =  "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        response["Access-Control-Allow-Headers"] =  "*"
+
+        #response["Access-Control-Allow-Origin"] = "*"
+        #response["Access-Control-Allow-Methods"] = "GET"
+        #response["Access-Control-Max-Age"] = "1000"
+        #response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+
+        return response
 
 
 class CreateCars:

@@ -55,6 +55,7 @@
     <Folder Include="FancyCars_API\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="package.json" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
   </ItemGroup>

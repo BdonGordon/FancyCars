@@ -24,7 +24,10 @@ declare interface ICallApiAction {
         endpoint?: string,
         method?: string,
         types?: Array<string | object>,
-        headers?: { 'Content-Type': string },
+        headers?: {
+            'Content-Type': string
+            //'Access-Control-Allow-Origin': string
+        },
         body?: any
     }
 }

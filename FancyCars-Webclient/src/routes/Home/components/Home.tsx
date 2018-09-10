@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { HomeProps } from '../containers/HomeContainer';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 const initialState: HomeProps.IState = {
     carList: new Array()
@@ -12,6 +13,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.state = initialState;
 
         this.renderCarList = this.renderCarList.bind(this);
+        this.renderTestCards = this.renderTestCards.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +51,52 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         }
     }
 
+    renderTestCards() {
+            return (
+                <div className={isBrowser ? 'car-show' : 'car-show-mobile'}>
+                    <div className="card">
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <div className="card-content">
+                            <h4>Lambo dambo</h4>
+                            <p className="price">$19.99</p>
+                            <p>Text about jeans ... </p>
+                            <p><button>Buy</button></p>
+                        </div>
+                    </div>
+                    <div className="card">
+                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
+                        <h4>Lambo dambo 2</h4>
+                        <p className="price">$19.99</p>
+                        <p>Text about jeans ... </p>
+                        <p><button>Buy</button></p>
+                    </div>
+                    <div className="card">
+                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
+                        <h4>Lambo dambo</h4>
+                        <p className="price">$19.99</p>
+                        <p>Text about jeans ... </p>
+                        <p><button>Buy</button></p>
+                    </div>
+                    <div className="card">
+                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
+                        <h4>Lambo dambo 3</h4>
+                        <p className="price">$19.99</p>
+                        <p>Text about jeans ... </p>
+                        <p><button>Buy</button></p>
+                    </div>
+                    <div className="card">
+                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
+                        <h4>Lambo dambo 4</h4>
+                        <p className="price">$19.99</p>
+                        <p>Text about jeans ... </p>
+                        <p><button>Buy</button></p>
+                    </div>
+                </div>
+            );
+    }
+
     render() {
         return (
             <div className='home-layout'>
@@ -61,9 +109,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                     <button>Test</button>
                 </div>
 
-                <div className='car-show'>
-                    {this.renderCarList()}
-                </div>
+                {this.renderTestCards()}
             </div>
         );
     }

@@ -67,14 +67,8 @@ body, html {
     justify-content: center;
 }
 
-.car-show {
-    display: flex;
-    flex-direction: column;
-    width: 99%;
-    padding-right: 12px;
-    padding-left: 8px;
-    flex: 12;
-}
+
+
 
 .car-div {
     display: flex;
@@ -94,4 +88,40 @@ body, html {
 .car-content {
     background-color: indianred;
     flex: 3.5;
+}
+
+.car-show {
+    display: grid;
+    overflow-wrap: break-word;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    width: 95%;
+    background-color: darkolivegreen;
+}
+
+.car-show-mobile {
+    background-color: darkmagenta;
+}
+
+.card {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 8px;
+    text-align: center;
+    font-family: Arial;
+    background-color: cadetblue;
+}
+
+.card-content {
+    background-color: darkred;
+    flex: 1;
+    padding-bottom: 4px;
+}
+
+.card-img {
+    flex: 4;
+    background-color: dimgray;
 }

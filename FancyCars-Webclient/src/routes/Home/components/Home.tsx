@@ -84,10 +84,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
 
     renderTestCards() {
         return (
-            <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{
-                backgroundColor: 'darkolivegreen',
-                gridTemplateColumns: this.renderColumnDimensions()
-            }}>
+            <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{backgroundColor: 'darkolivegreen', gridTemplateColumns: this.renderColumnDimensions()}} >
                     <div className="card">
                         <div className="card-img">
                             <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
@@ -155,8 +152,17 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 </div>
 
                 <div className='option-div'>
-                    <h6>Sort By:</h6>
-                    <button>Test</button>
+                    <label style={{ fontWeight: 'bold', paddingRight: 12, paddingTop: 12 }}> Sort By: </label>
+
+                    <label className='check-box-container'> Name
+                        <input type="checkbox" />
+                        <span className='checkbox-style' />
+                    </label>
+
+                    <label className='check-box-container'> Available
+                        <input type="checkbox" />
+                        <span className='checkbox-style' />
+                    </label>
                 </div>
 
                 {this.renderTestCards()}

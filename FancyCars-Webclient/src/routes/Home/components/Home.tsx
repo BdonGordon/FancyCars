@@ -3,7 +3,8 @@ import { HomeProps } from '../containers/HomeContainer';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 const initialState: HomeProps.IState = {
-    carList: new Array()
+    carList: new Array(),
+    windowWidth: window.innerWidth
 };
 
 class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
@@ -14,9 +15,12 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
 
         this.renderCarList = this.renderCarList.bind(this);
         this.renderTestCards = this.renderTestCards.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     componentDidMount() {
+        window.addEventListener('resize', this.updateWindowDimensions);
+
         this.props.retrieveCars().then((response) => {
             if (!!response.payload.cars && response.payload.cars.length > 0) {
                 this.setState({
@@ -26,6 +30,33 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             else {
             }
         });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({
+            windowWidth: window.innerWidth
+        });
+    }
+
+    renderColumnDimensions(): string {
+        if (this.state.windowWidth < 450) {
+            return 'repeat(1, 1fr)';
+        }
+        else if (this.state.windowWidth < 650) {
+            return 'repeat(2, 1fr)';
+        }
+        else if (this.state.windowWidth < 1000) {
+            return 'repeat(3, 1fr)';
+        }
+
+        return 'repeat(4, 1fr)';
+    }
+
+    componentWillReceiveProps(nextProps: HomeProps.IProps) {
     }
 
     renderCarList() {
@@ -52,8 +83,11 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
     }
 
     renderTestCards() {
-            return (
-                <div className={isBrowser ? 'car-show' : 'car-show-mobile'}>
+        return (
+            <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{
+                backgroundColor: 'darkolivegreen',
+                gridTemplateColumns: this.renderColumnDimensions()
+            }}>
                     <div className="card">
                         <div className="card-img">
                             <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
@@ -66,32 +100,48 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                         </div>
                     </div>
                     <div className="card">
-                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
-                        <h4>Lambo dambo 2</h4>
-                        <p className="price">$19.99</p>
-                        <p>Text about jeans ... </p>
-                        <p><button>Buy</button></p>
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <div className="card-content">
+                            <h4>Lambo dambo 2</h4>
+                            <p className="price">$19.99</p>
+                            <p>Text about jeans ... </p>
+                            <p><button>Buy</button></p>
+                        </div>
                     </div>
                     <div className="card">
-                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
-                        <h4>Lambo dambo</h4>
-                        <p className="price">$19.99</p>
-                        <p>Text about jeans ... </p>
-                        <p><button>Buy</button></p>
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <div className="card-content">
+                            <h4>Lambo dambo 3</h4>
+                            <p className="price">$19.99</p>
+                            <p>Text about jeans ... </p>
+                            <p><button>Buy</button></p>
+                        </div>
                     </div>
                     <div className="card">
-                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
-                        <h4>Lambo dambo 3</h4>
-                        <p className="price">$19.99</p>
-                        <p>Text about jeans ... </p>
-                        <p><button>Buy</button></p>
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <div className="card-content">
+                            <h4>Lambo dambo 4</h4>
+                            <p className="price">$19.99</p>
+                            <p>Text about jeans ... </p>
+                            <p><button>Buy</button></p>
+                        </div>
                     </div>
                     <div className="card">
-                        <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%' }} />
-                        <h4>Lambo dambo 4</h4>
-                        <p className="price">$19.99</p>
-                        <p>Text about jeans ... </p>
-                        <p><button>Buy</button></p>
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <div className="card-content">
+                            <h4>Lambo dambo 5</h4>
+                            <p className="price">$19.99</p>
+                            <p>Text about jeans ... </p>
+                            <p><button>Buy</button></p>
+                        </div>
                     </div>
                 </div>
             );

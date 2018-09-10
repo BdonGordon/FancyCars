@@ -20,6 +20,7 @@ export namespace HomeProps {
 
     export interface IState {
         carList: Array<ICar>;
+        windowWidth: number;
     }
 }
 

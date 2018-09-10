@@ -93,10 +93,10 @@ body, html {
 .car-show {
     display: grid;
     overflow-wrap: break-word;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: inherit;
     grid-auto-rows: minmax(100px, auto);
     width: 95%;
-    background-color: darkolivegreen;
+    background-color: inherit;
 }
 
 .car-show-mobile {

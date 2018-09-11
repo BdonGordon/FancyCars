@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo 'Hello'",
-    "start": "workon Dev-Env && python manage.py runserver 10.193.78.124:8000"
+    "preinstall": "mkvirtualenv Dev-Env",
+    "install": "workon Dev-Env && pip install django && pip install django-cors-headers && pip install djangorestframework && pip install Pillow",
+    "start": "workon Dev-Env && python manage.py runserver 10.201.49.24:8000"
   },
   "author": "Brandon Gordon",
   "license": "ISC"

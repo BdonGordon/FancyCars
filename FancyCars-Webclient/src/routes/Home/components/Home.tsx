@@ -44,12 +44,19 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 carList: this.handleSortByAvailability(this.state.isSortedByAvailability)
             })
         }
+
         if (previousState.isSortedByName !== this.state.isSortedByName) {
             if (this.state.isSortedByName) {
-                console.log("Sorted by name: " + this.state.sortType);
+                this.handleSortByName(this.state.sortType);
             }
             else {
-                console.log("Unsorted: " + this.state.sortType);
+                this.handleSortByName();
+            }
+        }
+
+        if (previousState.sortType !== this.state.sortType) {
+            if (this.state.isSortedByName) {
+                this.handleSortByName(this.state.sortType);
             }
         }
     }
@@ -63,6 +70,19 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
     handleSortByName(sortType?: string): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
+        if (!!sortType) {
+            if (sortType === 'ascending') {
+                return cars.sort((carOne: ICar, carTwo: ICar) => {
+                    return carOne.name.charCodeAt(0) - carTwo.name.charCodeAt(0);
+                });
+            }
+            else {
+                return cars.sort((carOne: ICar, carTwo: ICar) => {
+                    return carTwo.name.charCodeAt(0) - carOne.name.charCodeAt(0);
+                });
+            }
+        }
+        
         return cars;
     }
 

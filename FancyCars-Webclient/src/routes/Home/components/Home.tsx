@@ -118,7 +118,10 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             <h4>{car.name}</h4>
                             <p className="price">{car.make}</p>
                             <p>{car.model}</p>
-                            <p><button>{car.available}</button></p>
+                            <p><button className={car.available.toUpperCase() === "Available".toUpperCase()
+                                ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
+                                {car.available.toUpperCase()}
+                            </button></p>
                         </div>
                     </div>
                 );

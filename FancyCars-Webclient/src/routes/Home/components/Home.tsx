@@ -47,16 +47,22 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
 
         if (previousState.isSortedByName !== this.state.isSortedByName) {
             if (this.state.isSortedByName) {
-                this.handleSortByName(this.state.sortType);
+                this.setState({
+                    carList: this.handleSortByName(this.state.sortType)
+                })
             }
             else {
-                this.handleSortByName();
+                this.setState({
+                    carList: this.handleSortByName()
+                })
             }
         }
 
         if (previousState.sortType !== this.state.sortType) {
             if (this.state.isSortedByName) {
-                this.handleSortByName(this.state.sortType);
+                this.setState({
+                    carList: this.handleSortByName(this.state.sortType)
+                })
             }
         }
     }
@@ -82,8 +88,10 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 });
             }
         }
-        
-        return cars;
+
+        return cars.sort((carOne: ICar, carTwo: ICar) => {
+            return carOne.id - carTwo.id;
+        });
     }
 
     handleSortByAvailability(sorted: boolean): Array<ICar> {
@@ -164,18 +172,18 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 <div className='sort-by-dropdown'>
                     <button className="dropdown-button" onClick={() => this.setState({ isSorting: !this.state.isSorting })}>Sort By</button>
                     <div className="dropdown-content" style={{ display: this.state.isSorting ? 'block' : 'none' }}>
-                        <text onClick={() => this.setState({ isSortedByName: !this.state.isSortedByName })}
+                        <text onClick={() => this.setState({ isSortedByName: !this.state.isSortedByName, isSorting: false })}
                             style={{ color: this.state.isSortedByName ? '#3498DB' : '' }}>
                             Name
                         </text>
-                        <text onClick={() => this.setState({ isSortedByAvailability: !this.state.isSortedByAvailability })}
+                        <text onClick={() => this.setState({ isSortedByAvailability: !this.state.isSortedByAvailability, isSorting: false })}
                             style={{ color: this.state.isSortedByAvailability ? '#3498DB' : '' }}>
                             Available
                         </text>
                     </div>
                     <label className="sort-label" style={{ display: this.state.isSortedByName ? 'inline' : 'none' }}
                         onClick={() => this.setState({ sortType: this.state.sortType === "ascending" ? "descending" : "ascending" })}>
-                        {this.state.sortType === "ascending" ? "Z-A" : "A-Z"}
+                        <i className={this.state.sortType === "ascending" ? "descend-arrow" : "ascend-arrow"} /> {this.state.sortType === "ascending" ? "Z-A" : "A-Z"}
                     </label>
                 </div>
 

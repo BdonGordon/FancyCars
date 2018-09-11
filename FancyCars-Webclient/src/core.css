@@ -200,3 +200,18 @@ body, html {
     background-color: #414141;
     cursor: pointer;
 }
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.descend-arrow {
+    transform: rotate(45deg);
+}
+
+.ascend-arrow {
+    transform: rotate(-135deg);
+}

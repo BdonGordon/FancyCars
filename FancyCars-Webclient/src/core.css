@@ -69,59 +69,45 @@ body, html {
     justify-content: center;
 }
 
-/*Customized checkbox from https://www.w3schools.com/howto/howto_css_custom_checkbox.asp*/
-.check-box-container {
-    display: block;
-    padding-right: 35px;
-    margin-right: 12px;
+.sort-by-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
     cursor: pointer;
+    background-color: #3498DB;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    padding-left: 28px;
+    padding-right: 28px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    color: white;
     font-size: 16px;
-    user-select: none;
-    padding-top: 12px;
-    padding-bottom: 12px;
 }
 
-.checkbox-style {
+.dropdown-content {
+    display: inherit;
     position: absolute;
-    margin-left: 8px;
-    height: 25px;
-    width: 25px;
-    background-color: #EEE;
-    border-radius: 12px;
+    background-color: #F1F1F1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-.check-box-container:hover input ~ .checkbox-style {
-    background: #ccc;
-}
-
-.check-box-container input:checked ~ .checkbox-style {
-    background-color: #2196F3;
-}
-
-.checkbox-style:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.check-box-container input:checked ~ .checkbox-style::after {
+.dropdown-content text {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
     display: block;
-}
-
-.check-box-container .checkbox-style:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
-}
-
-.check-box-container input {
-    position: absolute;
-    opacity: 0;
     cursor: pointer;
+}
+
+.dropdown-content text:hover {
+    background-color: #7A7A7A;
+    color: white;
 }
 
 .car-show {
@@ -162,7 +148,7 @@ body, html {
     color: white;
     font-family: Arial;
     width: 50%;
-    border-radius: 20px;
+    border-radius: 8px;
     border-color: black;
     padding-top: 4px; 
     padding-bottom: 4px;
@@ -179,7 +165,7 @@ body, html {
     color: white;
     font-family: Arial;
     width: 50%;
-    border-radius: 20px;
+    border-radius: 8px;
     border-color: black;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -196,7 +182,7 @@ body, html {
     color: white;
     font-family: Arial;
     width: 50%;
-    border-radius: 20px;
+    border-radius: 8px;
     border-color: black;
     padding-top: 4px;
     padding-bottom: 4px;

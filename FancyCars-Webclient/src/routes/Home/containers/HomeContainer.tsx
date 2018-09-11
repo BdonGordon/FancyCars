@@ -22,7 +22,9 @@ export namespace HomeProps {
         unsortedCarList: Array<ICar>;
         carList: Array<ICar>;
         windowWidth: number;
-        isSortedByName?: boolean;
+        isSorting?: boolean;
+        isSortedByNameAscending?: boolean;
+        isSortedByNameDescending?: boolean;
         isSortedByAvailability?: boolean;
     }
 }

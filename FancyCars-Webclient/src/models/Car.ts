@@ -7,7 +7,7 @@ export interface ICar {
     make: string;
     model: string;
     year: number;
-    available: boolean;
+    available: string;
 }
 
 export interface IRetrieveCarsAction extends AnyAction {

@@ -21,6 +21,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.renderTestCards = this.renderTestCards.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.handleSortByName = this.handleSortByName.bind(this);
+        this.handleSortByAvailability = this.handleSortByAvailability.bind(this);
     }
 
     componentDidMount() {
@@ -38,20 +39,16 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         });
     }
 
-    componentWillReceiveProps(nextProps: HomeProps.IProps) {
-    }
-
     componentDidUpdate(prevProps: HomeProps.IProps, previousState: HomeProps.IState) {
-        
-        if (!!previousState && previousState.isSortedByName !== this.state.isSortedByName && this.state.isSortedByName) {
+        if (!!previousState && previousState.isSortedByName !== this.state.isSortedByName ) {
             this.setState({
-                carList: this.handleSortByName(true)
+                carList: this.handleSortByName(this.state.isSortedByName)
             });
         }
-        if (!!previousState && previousState.isSortedByName !== this.state.isSortedByName && !this.state.isSortedByName) {
+        if (!!previousState && previousState.isSortedByAvailability !== this.state.isSortedByAvailability) {
             this.setState({
-                carList: this.handleSortByName(false)
-            });
+                carList: this.handleSortByAvailability(this.state.isSortedByAvailability)
+            })
         }
     }
 
@@ -68,8 +65,21 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 return carOne.id - carTwo.id;
             });
         }
-
         return cars;
+    }
+
+    handleSortByAvailability(sorted: boolean): Array<ICar> {
+        let cars: Array<ICar> = this.state.carList;
+
+        if (sorted) {
+            cars = this.state.carList.filter((car) => {
+                if (car.available.toUpperCase() === "Available".toUpperCase()) {
+                    return car;
+                }
+            });
+            return cars;
+        }
+        return this.props.cars;
     }
 
     componentWillUnmount() {
@@ -106,9 +116,9 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                         </div>
                         <div className="card-content">
                             <h4>{car.name}</h4>
-                            <p className="price">$19.99</p>
-                            <p>{car.make}</p>
-                            <p><button>Buy</button></p>
+                            <p className="price">{car.make}</p>
+                            <p>{car.model}</p>
+                            <p><button>{car.available}</button></p>
                         </div>
                     </div>
                 );

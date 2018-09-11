@@ -12,11 +12,21 @@ def index(request):
 class CarsService(APIView):
     def get(self, format=None):
         cars = []
-        carOne = CreateCars(1, "img1", "name1", "make1", "model1", 1990, "Available")
-        carTwo = CreateCars(2, "img2", "name2", "make2", "model2", 1999, "Out of Stock")
+        #for the image, we will create an array of images that are stored in Django with the names: "http://myfancycar/imageX", where X = a number
+        carOne = CreateCars(1, "img1", "bame1", "make1", "model1", 1990, "Available")
+        carTwo = CreateCars(2, "img2", "aame2", "make2", "model2", 1999, "Out of Stock")
+        carThree = CreateCars(5, "img5", "lame2", "make3", "model2", 1999, "Unavailable")
+        carFour = CreateCars(6, "img6", "mame2", "make4", "model2", 1999, "Out of Stock")
+        carFive = CreateCars(3, "img3", "oame2", "make5", "model2", 1999, "Unavailable")
+        carSix = CreateCars(4, "img4", "pame2", "make6", "model2", 1999, "Available")
+        
 
         cars.append(carOne.createCarObject())
         cars.append(carTwo.createCarObject())
+        cars.append(carThree.createCarObject())
+        cars.append(carFour.createCarObject())
+        cars.append(carFive.createCarObject())
+        cars.append(carSix.createCarObject())
 
         response = JsonResponse({'cars': cars})
 

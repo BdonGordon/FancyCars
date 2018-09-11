@@ -19,8 +19,11 @@ export namespace HomeProps {
     export interface IProps extends IStateProps, IDispatchProps, IOwnProps { }
 
     export interface IState {
+        unsortedCarList: Array<ICar>;
         carList: Array<ICar>;
         windowWidth: number;
+        isSortedByName?: boolean;
+        isSortedByAvailability?: boolean;
     }
 }
 

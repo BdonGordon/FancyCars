@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { HomeProps } from '../containers/HomeContainer';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { ICar } from '../../../models/Car';
 
 const initialState: HomeProps.IState = {
+    unsortedCarList: new Array(),
     carList: new Array(),
-    windowWidth: window.innerWidth
+    windowWidth: window.innerWidth,
+    isSortedByName: false,
+    isSortedByAvailability: false
 };
 
 class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
@@ -16,6 +20,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.renderCarList = this.renderCarList.bind(this);
         this.renderTestCards = this.renderTestCards.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleSortByName = this.handleSortByName.bind(this);
     }
 
     componentDidMount() {
@@ -24,12 +29,47 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.props.retrieveCars().then((response) => {
             if (!!response.payload.cars && response.payload.cars.length > 0) {
                 this.setState({
-                    carList: response.payload.cars
+                    carList: response.payload.cars,
+                    unsortedCarList: response.payload.cars
                 });
             }
             else {
             }
         });
+    }
+
+    componentWillReceiveProps(nextProps: HomeProps.IProps) {
+    }
+
+    componentDidUpdate(prevProps: HomeProps.IProps, previousState: HomeProps.IState) {
+        
+        if (!!previousState && previousState.isSortedByName !== this.state.isSortedByName && this.state.isSortedByName) {
+            this.setState({
+                carList: this.handleSortByName(true)
+            });
+        }
+        if (!!previousState && previousState.isSortedByName !== this.state.isSortedByName && !this.state.isSortedByName) {
+            this.setState({
+                carList: this.handleSortByName(false)
+            });
+        }
+    }
+
+    handleSortByName(sorted: boolean): Array<ICar> {
+        let cars: Array<ICar> = this.state.carList;
+
+        if (sorted) {
+            cars = cars.sort((carOne, carTwo) => {
+                return carOne.name.charCodeAt(0) - carTwo.name.charCodeAt(0);
+            });
+        }
+        else {
+            cars = cars.sort((carOne, carTwo) => {
+                return carOne.id - carTwo.id;
+            });
+        }
+
+        return cars;
     }
 
     componentWillUnmount() {
@@ -56,20 +96,19 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         return 'repeat(4, 1fr)';
     }
 
-    componentWillReceiveProps(nextProps: HomeProps.IProps) {
-    }
-
     renderCarList() {
         if (!!this.state.carList && this.state.carList.length > 0) {
             return this.state.carList.map((car) => {
                 return (
-                    <div key={car.id} className="car-div">
-                        {/*height will be adjusted accordingly based on the phone*/}
-                        <div className="car-image" style={{ height: 80 }}>
-                            
+                    <div className="card" key={car.id}>
+                        <div className="card-img">
+                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
                         </div>
-                        <div className="car-content">
-                            {car.name}
+                        <div className="card-content">
+                            <h4>{car.name}</h4>
+                            <p className="price">$19.99</p>
+                            <p>{car.make}</p>
+                            <p><button>Buy</button></p>
                         </div>
                     </div>
                 );
@@ -155,17 +194,18 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                     <label style={{ fontWeight: 'bold', paddingRight: 12, paddingTop: 12 }}> Sort By: </label>
 
                     <label className='check-box-container'> Name
-                        <input type="checkbox" />
+                        <input type="checkbox" onClick={() => this.setState({ isSortedByName: !this.state.isSortedByName     })} />
                         <span className='checkbox-style' />
                     </label>
 
                     <label className='check-box-container'> Available
-                        <input type="checkbox" />
+                        <input type="checkbox" onClick={() => this.setState({ isSortedByAvailability: !this.state.isSortedByAvailability })} />
                         <span className='checkbox-style' />
                     </label>
                 </div>
-
-                {this.renderTestCards()}
+                <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ backgroundColor: 'darkolivegreen', gridTemplateColumns: this.renderColumnDimensions()}} >
+                    {this.renderCarList()}
+                </div>
             </div>
         );
     }

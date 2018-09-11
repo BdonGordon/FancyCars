@@ -4,11 +4,10 @@ import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detec
 import { ICar } from '../../../models/Car';
 
 const initialState: HomeProps.IState = {
-    unsortedCarList: new Array(),
     carList: new Array(),
     windowWidth: window.innerWidth,
-    isSortedByNameAscending: false,
-    isSortedByNameDescending: false,
+    isSortedByName: false,
+    sortType: 'ascending',
     isSortedByAvailability: false,
     isSorting: false
 };
@@ -31,8 +30,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.props.retrieveCars().then((response) => {
             if (!!response.payload.cars && response.payload.cars.length > 0) {
                 this.setState({
-                    carList: response.payload.cars,
-                    unsortedCarList: response.payload.cars
+                    carList: response.payload.cars
                 });
             }
             else {
@@ -41,44 +39,29 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
     }
 
     componentDidUpdate(prevProps: HomeProps.IProps, previousState: HomeProps.IState) {
-        if (!!previousState && previousState.isSortedByNameAscending !== this.state.isSortedByNameAscending ) {
-            this.setState({
-                carList: this.handleSortByName(this.state.isSortedByNameAscending, "ascending"),
-            });
-        }
-        if (!!previousState && previousState.isSortedByNameDescending !== this.state.isSortedByNameDescending) {
-            this.setState({
-                carList: this.handleSortByName(this.state.isSortedByNameDescending, "descending"),
-            });
-        }
-        if (!!previousState && previousState.isSortedByAvailability !== this.state.isSortedByAvailability) {
+        if (previousState.isSortedByAvailability !== this.state.isSortedByAvailability) {
             this.setState({
                 carList: this.handleSortByAvailability(this.state.isSortedByAvailability)
             })
         }
+        if (previousState.isSortedByName !== this.state.isSortedByName) {
+            if (this.state.isSortedByName) {
+                console.log("Sorted by name: " + this.state.sortType);
+            }
+            else {
+                console.log("Unsorted: " + this.state.sortType);
+            }
+        }
     }
 
-    handleSortByName(sorted: boolean, sortType?: string): Array<ICar> {
-        let cars: Array<ICar> = this.state.carList;
 
-        if (sorted && sortType === "ascending") {
-            console.log("Asc");
-            cars = cars.sort((carOne, carTwo) => {
+    /*
+     * cars = cars.sort((carOne, carTwo) => {
                 return carOne.name.charCodeAt(0) - carTwo.name.charCodeAt(0);
             });
-        }
-        else if (sorted && sortType === "descending") {
-            console.log("Desc");
-            cars = cars.sort((carOne, carTwo) => {
-                return carTwo.name.charCodeAt(0) - carOne.name.charCodeAt(0);
-            });
-        }
-        else {
-            console.log("Other");
-            cars = cars.sort((carOne, carTwo) => {
-                return carOne.id - carTwo.id;
-            });
-        }
+     * */
+    handleSortByName(sortType?: string): Array<ICar> {
+        let cars: Array<ICar> = this.state.carList;
 
         return cars;
     }
@@ -161,20 +144,21 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 <div className='sort-by-dropdown'>
                     <button className="dropdown-button" onClick={() => this.setState({ isSorting: !this.state.isSorting })}>Sort By</button>
                     <div className="dropdown-content" style={{ display: this.state.isSorting ? 'block' : 'none' }}>
-                        <text onClick={() => this.setState({ isSortedByNameAscending: !this.state.isSortedByNameAscending, isSortedByNameDescending: false })}
-                            style={{color: this.state.isSortedByNameAscending ? '#3498DB' : '' }}>
-                            Name A-Z
-                        </text>
-                        <text onClick={() => this.setState({ isSortedByNameDescending: !this.state.isSortedByNameDescending, isSortedByNameAscending: false })}
-                            style={{ color: this.state.isSortedByNameDescending ? '#3498DB' : '' }}>
-                            Name Z-A
+                        <text onClick={() => this.setState({ isSortedByName: !this.state.isSortedByName })}
+                            style={{ color: this.state.isSortedByName ? '#3498DB' : '' }}>
+                            Name
                         </text>
                         <text onClick={() => this.setState({ isSortedByAvailability: !this.state.isSortedByAvailability })}
                             style={{ color: this.state.isSortedByAvailability ? '#3498DB' : '' }}>
                             Available
                         </text>
                     </div>
+                    <label className="sort-label" style={{ display: this.state.isSortedByName ? 'inline' : 'none' }}
+                        onClick={() => this.setState({ sortType: this.state.sortType === "ascending" ? "descending" : "ascending" })}>
+                        {this.state.sortType === "ascending" ? "Z-A" : "A-Z"}
+                    </label>
                 </div>
+
                 <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ backgroundColor: 'darkolivegreen', gridTemplateColumns: this.renderColumnDimensions()}} >
                     {this.renderCarList()}
                 </div>

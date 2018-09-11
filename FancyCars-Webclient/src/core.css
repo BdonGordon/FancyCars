@@ -74,6 +74,13 @@ body, html {
     display: inline-block;
 }
 
+.sort-label {
+    position: relative;
+    left: 28px;
+    cursor: pointer;
+    display: inherit;
+}
+
 .dropdown-button {
     cursor: pointer;
     background-color: #3498DB;

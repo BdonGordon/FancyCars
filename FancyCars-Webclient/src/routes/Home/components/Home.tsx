@@ -66,13 +66,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             }
         }
     }
-
-
-    /*
-     * cars = cars.sort((carOne, carTwo) => {
-                return carOne.name.charCodeAt(0) - carTwo.name.charCodeAt(0);
-            });
-     * */
+    
     handleSortByName(sortType?: string): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
@@ -138,12 +132,12 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 return (
                     <div className="card" key={car.id}>
                         <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
+                            <img src={require('../../../assets/' + car.img + '.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
                         </div>
                         <div className="card-content">
                             <h4>{car.name}</h4>
-                            <p className="price">{car.make}</p>
-                            <p>{car.model}</p>
+                            <p><i>Make</i> {car.make}</p>
+                            <p><i>Model</i> {car.model}</p>
                             <p><button className={car.available.toUpperCase() === "In Dealership".toUpperCase()
                                 ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
                                 {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}

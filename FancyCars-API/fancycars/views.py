@@ -13,12 +13,16 @@ class CarsService(APIView):
     def get(self, format=None):
         cars = []
         #for the image, we will create an array of images that are stored in Django with the names: "http://myfancycar/imageX", where X = a number
-        carOne = CreateCars(1, "img1", "pame1", "make1", "model1", 1990, "In Dealership")
-        carTwo = CreateCars(2, "img2", "aame2", "make2", "model2", 1999, "Out of Stock")
-        carThree = CreateCars(5, "img5", "lame2", "make3", "model2", 1999, "Unavailable")
-        carFour = CreateCars(6, "img6", "mame2", "make4", "model2", 1999, "Out of Stock")
-        carFive = CreateCars(3, "img3", "oame2", "make5", "model2", 1999, "Unavailable")
-        carSix = CreateCars(4, "img4", "bame2", "make6", "model2", 1999, "In Dealership")
+        carOne = CreateCars(1, "img1", "Mansonry Bentley Bentayga", "Bentley", "Bentayga", 2017, "In Dealership")
+        carTwo = CreateCars(2, "img2", "Mercedes-Benz SLR McLaren Roadster", "Mercedes-Benz", "SLR McLaren", 2010, "Out of Stock")
+        carThree = CreateCars(5, "img3", "Mercedes-Benz G500 Cabriolet", "Mercedes-Benz", "G500 Cabriolet", 2017, "Unavailable")
+        carFour = CreateCars(6, "img4", "Bugatti Veyron 16.4", "Bugatti", "Veyron 16.4", 2008, "Out of Stock")
+        carFive = CreateCars(10, "img5", "Ferrari Scuderia 16 M", "Ferrari", "Scuderia 16", 2009, "Unavailable")
+        carSix = CreateCars(4, "img6", "LHD Ferrari 458 Speciale", "Ferrari", "458 Speciale", 2014, "In Dealership")
+        carSeven = CreateCars(7, "img7", "Lamborghini Aventador LP700-4 LHD", "Lamborghini", "Aventador", 2013, "In Dealership")
+        carEight = CreateCars(9, "img8", "Lamborghini Huracan Performante", "Lamborghini", "Huracan Performante", 2017, "Unavailable")
+        carNine = CreateCars(8, "img9", "Porsche 911 GT3", "Porsche", "911 GT3", 2014, "In Dealership")
+        carTen = CreateCars(3, "img10", "Rolls-Royce Dawn", "Rolls-Royce", "Dawg", 2017, "Out of Stock")
         
 
         cars.append(carOne.createCarObject())
@@ -27,6 +31,10 @@ class CarsService(APIView):
         cars.append(carFour.createCarObject())
         cars.append(carFive.createCarObject())
         cars.append(carSix.createCarObject())
+        cars.append(carSeven.createCarObject())
+        cars.append(carEight.createCarObject())
+        cars.append(carNine.createCarObject())
+        cars.append(carTen.createCarObject())
 
         response = JsonResponse({'cars': cars})
 
@@ -36,6 +44,7 @@ class CarsService(APIView):
         response["Access-Control-Allow-Headers"] =  "*"
 
         return response
+
 
 
 class CreateCars:

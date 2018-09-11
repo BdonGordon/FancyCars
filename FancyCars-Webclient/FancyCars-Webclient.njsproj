@@ -42,6 +42,16 @@
     <Content Include="public\index.html" />
     <Content Include="public\manifest.json" />
     <Content Include="src\App.css" />
+    <Content Include="src\assets\img1.jpg" />
+    <Content Include="src\assets\img10.jpg" />
+    <Content Include="src\assets\img2.jpg" />
+    <Content Include="src\assets\img3.jpg" />
+    <Content Include="src\assets\img4.jpg" />
+    <Content Include="src\assets\img5.jpg" />
+    <Content Include="src\assets\img6.jpg" />
+    <Content Include="src\assets\img7.jpg" />
+    <Content Include="src\assets\img8.jpg" />
+    <Content Include="src\assets\img9.jpg" />
     <Content Include="src\assets\lambo.jpg" />
     <Content Include="src\core.css" />
     <Content Include="src\index.css" />

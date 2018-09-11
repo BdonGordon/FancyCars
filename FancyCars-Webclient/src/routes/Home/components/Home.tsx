@@ -18,7 +18,6 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.state = initialState;
 
         this.renderCarList = this.renderCarList.bind(this);
-        this.renderTestCards = this.renderTestCards.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.handleSortByName = this.handleSortByName.bind(this);
         this.handleSortByAvailability = this.handleSortByAvailability.bind(this);
@@ -73,7 +72,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
 
         if (sorted) {
             cars = this.state.carList.filter((car) => {
-                if (car.available.toUpperCase() === "Available".toUpperCase()) {
+                if (car.available.toUpperCase() === "In Dealership".toUpperCase()) {
                     return car;
                 }
             });
@@ -118,9 +117,9 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             <h4>{car.name}</h4>
                             <p className="price">{car.make}</p>
                             <p>{car.model}</p>
-                            <p><button className={car.available.toUpperCase() === "Available".toUpperCase()
+                            <p><button className={car.available.toUpperCase() === "In Dealership".toUpperCase()
                                 ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
-                                {car.available.toUpperCase()}
+                                {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}
                             </button></p>
                         </div>
                     </div>
@@ -132,68 +131,6 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 <h5>No cars in stock</h5>
             );
         }
-    }
-
-    renderTestCards() {
-        return (
-            <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{backgroundColor: 'darkolivegreen', gridTemplateColumns: this.renderColumnDimensions()}} >
-                    <div className="card">
-                        <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
-                        </div>
-                        <div className="card-content">
-                            <h4>Lambo dambo</h4>
-                            <p className="price">$19.99</p>
-                            <p>Text about jeans ... </p>
-                            <p><button>Buy</button></p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
-                        </div>
-                        <div className="card-content">
-                            <h4>Lambo dambo 2</h4>
-                            <p className="price">$19.99</p>
-                            <p>Text about jeans ... </p>
-                            <p><button>Buy</button></p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
-                        </div>
-                        <div className="card-content">
-                            <h4>Lambo dambo 3</h4>
-                            <p className="price">$19.99</p>
-                            <p>Text about jeans ... </p>
-                            <p><button>Buy</button></p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
-                        </div>
-                        <div className="card-content">
-                            <h4>Lambo dambo 4</h4>
-                            <p className="price">$19.99</p>
-                            <p>Text about jeans ... </p>
-                            <p><button>Buy</button></p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="card-img">
-                            <img src={require('../../../assets/lambo.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
-                        </div>
-                        <div className="card-content">
-                            <h4>Lambo dambo 5</h4>
-                            <p className="price">$19.99</p>
-                            <p>Text about jeans ... </p>
-                            <p><button>Buy</button></p>
-                        </div>
-                    </div>
-                </div>
-            );
     }
 
     render() {

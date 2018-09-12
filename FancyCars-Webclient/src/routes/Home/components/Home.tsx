@@ -25,6 +25,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.handleSortByName = this.handleSortByName.bind(this);
         this.handleSortByAvailability = this.handleSortByAvailability.bind(this);
         this.handleSelectCar = this.handleSelectCar.bind(this);
+        this.renderDialogMessage = this.renderDialogMessage.bind(this);
     }
 
     componentDidMount() {
@@ -129,6 +130,16 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         return this.props.cars;
     }
 
+    handleSelectCar(car: ICar) {
+        this.props.checkAvailability(car.id).then((response) => {
+            console.log(response.payload.available);
+            this.setState({
+                isCarSelected: true,
+                carSelected: car
+            });
+        });
+    }
+
     renderColumnDimensions(): string {
         if (this.state.windowWidth < 450) {
             return 'repeat(1, 1fr)';
@@ -172,14 +183,18 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         }
     }
 
-    handleSelectCar(car: ICar) {
-        this.props.checkAvailability(car.id).then((response) => {
-            console.log(response.payload.available);
-            this.setState({
-                isCarSelected: true,
-                carSelected: car
-            });
-        });
+    renderDialogMessage(): string {
+        if (this.state.carSelected.available.toLowerCase() === "In Dealership".toLowerCase()) {
+            return `Congratulations on purchasing your ${this.state.carSelected.name} from FancyCars!`;
+        }
+        else if (this.state.carSelected.available.toLowerCase() === "Unavailable".toLowerCase()) {
+            return `We sincerely apologize for the inconvenience, but our ${this.state.carSelected.name} is 
+                ${this.state.carSelected.available.toLowerCase()} at the moment. Please feel free to contact us at 905-123-1234.`;
+        }
+        else {
+            return `We sincerely apologize for the inconvenience, but our ${this.state.carSelected.name} is currently
+                ${this.state.carSelected.available.toLowerCase()}. We will receive shipment of ${this.state.carSelected.name} on December 29th, 2019.`;
+        }
     }
 
     render() {
@@ -208,9 +223,13 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 </div>
 
 
-                <div className="dialog-popup" style={{ display: this.state.isCarSelected ? 'block' : 'none' }}>
-                    {!!this.state.isCarSelected && < label > Our {this.state.carSelected.name} is {this.state.carSelected.available}</label>}
-                        <button onClick={() => { this.setState({ isCarSelected: false }) }}>Closer</button> 
+                <div className="dialog-popup" style={{ display: this.state.isCarSelected ? 'flex' : 'none' }}>
+                    <div className="dialog-header">
+                        <button onClick={() => { this.setState({ isCarSelected: false }) }} className="dialog-close-button">X</button> 
+                    </div>
+                    <div className="dialog-content">
+                        {!!this.state.isCarSelected && <label>{this.renderDialogMessage()}</label>}
+                    </div>
                 </div>
 
 

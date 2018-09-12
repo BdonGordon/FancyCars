@@ -8,7 +8,6 @@ body, html {
 .layoutMain {
     width: 100%;
     height: 100%;
-    background-color: indianred;
 }
 
 .layoutHeader {
@@ -52,13 +51,11 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: coral;
 }
 
 .header-photo {
     width: 100%;
 }
-
 
 .option-div {
     display: flex;
@@ -130,7 +127,7 @@ body, html {
     display: flex;
     flex: 1;
     flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
     max-width: 400px;
     margin: 8px;
     text-align: center;
@@ -140,14 +137,15 @@ body, html {
 }
 
 .card-content {
-    background-color: darkred;
     flex: 1;
     padding-bottom: 4px;
+    border-width: 4px;
 }
 
 .card-img {
     flex: 4;
     background-color: dimgray;
+    border-width: 4px;
 }
 
 .unavailable-button {
@@ -159,11 +157,6 @@ body, html {
     border-color: black;
     padding-top: 4px; 
     padding-bottom: 4px;
-    transition-duration: 0.5s;
-}
-
-.unavailable-button:hover {
-    background-color: #530000;
     cursor: pointer;
 }
 
@@ -176,13 +169,9 @@ body, html {
     border-color: black;
     padding-top: 4px;
     padding-bottom: 4px;
-    transition-duration: 0.5s;
-}
-
-.available-button:hover {
-    background-color: #214B00;
     cursor: pointer;
 }
+
 
 .out-of-stock-button {
     background-color: #7A7A7A;
@@ -193,11 +182,6 @@ body, html {
     border-color: black;
     padding-top: 4px;
     padding-bottom: 4px;
-    transition-duration: 0.5s;
-}
-
-.out-of-stock-button:hover {
-    background-color: #414141;
     cursor: pointer;
 }
 

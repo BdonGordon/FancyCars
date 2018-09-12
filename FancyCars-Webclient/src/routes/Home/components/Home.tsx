@@ -181,7 +181,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                     </label>
                 </div>
 
-                <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ backgroundColor: 'darkolivegreen', gridTemplateColumns: this.renderColumnDimensions()}} >
+                <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ gridTemplateColumns: this.renderColumnDimensions()}} >
                     {this.renderCarList()}
                 </div>
             </div>

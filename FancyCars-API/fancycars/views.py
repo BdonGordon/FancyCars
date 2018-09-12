@@ -46,6 +46,9 @@ class CarsService(APIView):
         return response
 
 
+class AvailabilityService(APIView):
+    def get(self, request, id):
+       return HttpResponse("Hello")
 
 class CreateCars:
     def __init__(self, id, img, name, make, model, year, available):

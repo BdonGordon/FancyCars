@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+/**
+ * Very basic header
+ */
 class Header extends React.Component<{}>{
     constructor(props) {
         super(props);

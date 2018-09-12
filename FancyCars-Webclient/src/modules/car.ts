@@ -24,7 +24,9 @@ const initialState: ICarState = {
     available: ''
 };
 
-//https://dashboard.ngrok.com/get-started#
+/**
+ * Retrieve all the cars from the JSON Array Response 
+ */
 export function retrieveCars(): ICallApiAction {
     return {
         [CALL_API]: {
@@ -38,6 +40,10 @@ export function retrieveCars(): ICallApiAction {
     };
 }
 
+/**
+ * Checks the car's availability status by the car's ID
+ * @param carID
+ */
 export function checkAvailability(carID: number): ICallApiAction {
     return {
         [CALL_API]: {

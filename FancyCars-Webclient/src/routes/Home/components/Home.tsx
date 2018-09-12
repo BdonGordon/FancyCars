@@ -31,17 +31,21 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
     componentDidMount() {
         window.addEventListener('resize', this.updateWindowDimensions);
 
+        //immediately when the component is mounted, we want to grab all the car objects from the API to display once component is rendered
         this.props.retrieveCars().then((response) => {
             if (!!response.payload.cars && response.payload.cars.length > 0) {
                 this.setState({
                     carList: response.payload.cars
                 });
             }
-            else {
-            }
         });
     }
 
+    /**
+     * This lifecycle method, for this app, is just to keep track of filtering interaction
+     * @param prevProps
+     * @param previousState
+     */
     componentDidUpdate(prevProps: HomeProps.IProps, previousState: HomeProps.IState) {
         if (previousState.isSortedByAvailability !== this.state.isSortedByAvailability) {
             this.setState({
@@ -75,22 +79,31 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
+    /**
+     * Continuously listens to the window resizing to adjust the number of cars shown per row
+     */
     updateWindowDimensions() {
         this.setState({
             windowWidth: window.innerWidth
         });
     }
 
+    /**
+     * 
+     * @param sortType ==> optional. If 'ascending', then the cars will be sorted in ascending alphabetical order ... vise versa for 'descending'
+     */
     handleSortByName(sortType?: string): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
         if (!!sortType) {
             if (sortType === 'ascending') {
                 return cars.sort((carOne: ICar, carTwo: ICar) => {
+                    //strip all the spaces then convert to uppercase to get proper matching of ASCII values
                     let carOneName = carOne.name.replace(/ /g, '').toUpperCase();
                     let carTwoName = carTwo.name.replace(/ /g, '').toUpperCase();
 
                     for (let i = 0; i < carOne.name.length - 1; i++) {
+                        //traverse through each character until one is different, then we compare and return
                         if (carOneName.charCodeAt(i) !== carTwoName.charCodeAt(i)) {
                             return carOneName.charCodeAt(i) - carTwoName.charCodeAt(i);
                         }
@@ -111,17 +124,22 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             }
         }
 
+        //if sortType does not contain a value, then we sort how we originally received the cars from the API (from ascending id value)
         return cars.sort((carOne: ICar, carTwo: ICar) => {
             return carOne.id - carTwo.id;
         });
     }
 
+    /**
+     * Self-explanatory
+     * @param sorted
+     */
     handleSortByAvailability(sorted: boolean): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
         if (sorted) {
             cars = this.state.carList.filter((car) => {
-                if (car.available.toUpperCase() === "In Dealership".toUpperCase()) {
+                if (car.available.toUpperCase() === 'In Dealership'.toUpperCase()) {
                     return car;
                 }
             });
@@ -130,9 +148,13 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         return this.props.cars;
     }
 
+    /**
+     * Whenever the button for the car card is pressed, this function will be called
+     * @param car
+     */
     handleSelectCar(car: ICar) {
         this.props.checkAvailability(car.id).then((response) => {
-            console.log(response.payload.available);
+            //value of the availability of the car is in response.payload.available. We want to pass the object to manipulate in dialog easier
             this.setState({
                 isCarSelected: true,
                 carSelected: car
@@ -140,6 +162,10 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         });
     }
 
+    /**
+     * Based on the size of the window, there we will be corresponding number of cars per row.
+     * For a phone (which is typically < 450 in width will render one)
+     */
     renderColumnDimensions(): string {
         if (this.state.windowWidth < 450) {
             return 'repeat(1, 1fr)';
@@ -154,22 +180,25 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         return 'repeat(4, 1fr)';
     }
 
+    /**
+     * Render the car list based on the database data retrieved
+     */
     renderCarList() {
         if (!!this.state.carList && this.state.carList.length > 0) {
             return this.state.carList.map((car) => {
                 return (
-                    <div className="card" key={car.id}>
-                        <div className="card-img">
+                    <div className='card' key={car.id}>
+                        <div className='card-img'>
                             <img src={require('../../../assets/' + car.img + '.jpg')} alt='Car 1' style={{ width: '100%', height: '100%' }} />
                         </div>
-                        <div className="card-content">
+                        <div className='card-content'>
                             <h4>{car.name}</h4>
                             <p><i>Make</i> {car.make}</p>
                             <p><i>Model</i> {car.model}</p>
                             <button onClick={() => this.handleSelectCar(car)} style={{ alignSelf: 'flex-end' }}
-                                className={car.available.toUpperCase() === "In Dealership".toUpperCase()
-                                ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
-                                {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}
+                                className={car.available.toUpperCase() === 'In Dealership'.toUpperCase()
+                                ? 'available-button' : car.available.toUpperCase() === 'Out of Stock'.toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
+                                {car.available.toUpperCase() === 'In Dealership'.toUpperCase() ? 'BUY' : car.available.toUpperCase()}
                             </button>
                         </div>
                     </div>
@@ -178,18 +207,21 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         }
         else {
             return (
-                <h5>No cars in stock</h5>
+                <h5 style={{ color: 'white' }}>No cars in stock</h5>
             );
         }
     }
 
+    /**
+     * Dialog message
+     */
     renderDialogMessage(): string {
-        if (this.state.carSelected.available.toLowerCase() === "In Dealership".toLowerCase()) {
+        if (this.state.carSelected.available.toLowerCase() === 'In Dealership'.toLowerCase()) {
             return `Congratulations on purchasing your ${this.state.carSelected.name} from FancyCars!`;
         }
-        else if (this.state.carSelected.available.toLowerCase() === "Unavailable".toLowerCase()) {
+        else if (this.state.carSelected.available.toLowerCase() === 'Unavailable'.toLowerCase()) {
             return `We sincerely apologize for the inconvenience, but our ${this.state.carSelected.name} is 
-                ${this.state.carSelected.available.toLowerCase()} at the moment. Please feel free to contact us at 905-123-1234.`;
+                ${this.state.carSelected.available.toLowerCase()} at the moment. Please feel free to contact us at 905-123-1234 to find out more.`;
         }
         else {
             return `We sincerely apologize for the inconvenience, but our ${this.state.carSelected.name} is currently
@@ -205,8 +237,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 </div>
 
                 <div className='sort-by-dropdown'>
-                    <button className="dropdown-button" onClick={() => this.setState({ isSorting: !this.state.isSorting })}>Sort By</button>
-                    <div className="dropdown-content" style={{ display: this.state.isSorting ? 'block' : 'none' }}>
+                    <button className='dropdown-button' onClick={() => this.setState({ isSorting: !this.state.isSorting })}>Sort By</button>
+                    <div className='dropdown-content' style={{ display: this.state.isSorting ? 'block' : 'none' }}>
                         <label onClick={() => this.setState({ isSortedByName: !this.state.isSortedByName, isSorting: false })}
                             style={{ color: this.state.isSortedByName ? '#3498DB' : '' }}>
                             Name
@@ -216,24 +248,23 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             Available
                         </label>
                     </div>
-                    <label className="sort-label" style={{ display: this.state.isSortedByName ? 'inline' : 'none' }}
-                        onClick={() => this.setState({ sortType: this.state.sortType === "ascending" ? "descending" : "ascending" })}>
-                        <i className={this.state.sortType === "ascending" ? "descend-arrow" : "ascend-arrow"} /> {this.state.sortType === "ascending" ? "Z-A" : "A-Z"}
+                    <label className='sort-label' style={{ display: this.state.isSortedByName ? 'inline' : 'none' }}
+                        onClick={() => this.setState({ sortType: this.state.sortType === 'ascending' ? 'descending' : 'ascending' })}>
+                        <i className={this.state.sortType === 'ascending' ? 'descend-arrow' : 'ascend-arrow'} /> {this.state.sortType === 'ascending' ? 'Z-A' : 'A-Z'}
                     </label>
                 </div>
 
 
-                <div className="dialog-popup" style={{ display: this.state.isCarSelected ? 'flex' : 'none' }}>
-                    <div className="dialog-header">
-                        <button onClick={() => { this.setState({ isCarSelected: false }) }} className="dialog-close-button">X</button> 
+                <div className='dialog-popup' style={{ display: this.state.isCarSelected ? 'flex' : 'none' }}>
+                    <div className='dialog-header'>
+                        <button onClick={() => { this.setState({ isCarSelected: false }) }} className='dialog-close-button'>X</button> 
                     </div>
-                    <div className="dialog-content">
+                    <div className='dialog-content'>
                         {!!this.state.isCarSelected && <label>{this.renderDialogMessage()}</label>}
                     </div>
                 </div>
 
-
-                <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ gridTemplateColumns: this.renderColumnDimensions()}} >
+                <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ gridTemplateColumns: this.renderColumnDimensions() }} >
                     {this.renderCarList()}
                 </div>
             </div>

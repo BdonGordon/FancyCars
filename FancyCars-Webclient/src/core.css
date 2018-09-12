@@ -204,7 +204,7 @@ i {
 .dialog-popup {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 40%;
     width: 200px;
     height: 200px;
     background-color: black;
@@ -213,10 +213,11 @@ i {
     z-index: 3;
     margin-left: -100px;
     display: inherit;
-    border: 5px solid #c7c7c7;
+    border: 3px solid #c7c7c7;
     border-radius: 8px;
     flex-direction: column;
 }
+
 
 .dialog-header {
     background-color: black;

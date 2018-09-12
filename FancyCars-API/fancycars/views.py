@@ -12,7 +12,7 @@ def index(request):
 class CarsService(APIView):
     def get(self, format=None):
         cars = []
-        #for the image, we will create an array of images that are stored in Django with the names: "http://myfancycar/imageX", where X = a number
+        #simply hard code the data for the cars
         carOne = CreateCars(1, "img1", "Mansonry Bentley Bentayga", "Bentley", "Bentayga", 2017, "In Dealership")
         carTwo = CreateCars(2, "img2", "Mercedes-Benz SLR McLaren Roadster", "Mercedes-Benz", "SLR McLaren", 2010, "Out of Stock")
         carThree = CreateCars(5, "img5", "Mercedes-Benz G500 Cabriolet", "Mercedes-Benz", "G500 Cabriolet", 2017, "Unavailable")
@@ -23,7 +23,7 @@ class CarsService(APIView):
         carEight = CreateCars(9, "img9", "Lamborghini Huracan Performante", "Lamborghini", "Huracan Performante", 2017, "Unavailable")
         carNine = CreateCars(8, "img8", "Porsche 911 GT3", "Porsche", "911 GT3", 2014, "In Dealership")
         carTen = CreateCars(3, "img3", "Rolls-Royce Dawn", "Rolls-Royce", "Dawg", 2017, "Out of Stock")
-
+        #create the JSON objects for each car then store into the cars array
         cars.append(carOne.createCarObject())
         cars.append(carTwo.createCarObject())
         cars.append(carThree.createCarObject())
@@ -72,6 +72,7 @@ class AvailabilityService(APIView):
         cars.append(carNine.createCarObject())
         cars.append(carTen.createCarObject())
 
+        #find the ID, if it exists, and return the appropriate reponse
         for car in cars:
             if id == car['id']:
                 return JsonResponse({'available': car['available']})

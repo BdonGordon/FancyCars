@@ -3,6 +3,7 @@ import { apiMiddleware } from 'redux-api-middleware';
 import { applyMiddleware, compose, createStore, Store } from 'redux';
 import makeRootReducer from './reducers';
 
+//creating the store and exporting it to AppContainer
 export function configureStore(initialState?: any): Store<any> {
     const middlewares = [
         thunk, apiMiddleware

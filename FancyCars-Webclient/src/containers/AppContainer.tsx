@@ -7,6 +7,9 @@ interface IAppContainer extends React.Props<any> {
     store: Store<any>;
 }
 
+/**
+ * Provide the application with the store here
+ */
 class AppContainer extends React.Component<IAppContainer, {}> {
     render() {
         const { store } = this.props;

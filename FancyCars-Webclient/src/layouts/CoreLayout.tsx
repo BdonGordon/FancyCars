@@ -7,16 +7,18 @@ export interface ICoreLayoutProps {
 }
 
 export interface IState {
-    isVisible: boolean;
 }
 
+/**
+ * This class is to keep the header and the routes in an organized fashion. Typically static after basic
+ * layout is created.
+ */
 class CoreLayout extends React.Component<ICoreLayoutProps, IState> {
     constructor(props) {
         super(props);
     }
 
     render() {
-
         return (
             <BrowserRouter>
                 <div>

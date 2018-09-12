@@ -22,6 +22,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.handleSortByName = this.handleSortByName.bind(this);
         this.handleSortByAvailability = this.handleSortByAvailability.bind(this);
+        this.handleSelectCar = this.handleSelectCar.bind(this);
     }
 
     componentDidMount() {
@@ -138,7 +139,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             <h4>{car.name}</h4>
                             <p><i>Make</i> {car.make}</p>
                             <p><i>Model</i> {car.model}</p>
-                            <p><button className={car.available.toUpperCase() === "In Dealership".toUpperCase()
+                            <p><button onClick={() => this.handleSelectCar(car.id)}
+                                className={car.available.toUpperCase() === "In Dealership".toUpperCase()
                                 ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
                                 {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}
                             </button></p>
@@ -154,7 +156,11 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         }
     }
 
-    //for dropdown: this.renderSortByOptions() => return <text onClick={this.sortBy}> </text>
+    handleSelectCar(carID: number) {
+        this.props.checkAvailability(carID).then((response) => {
+            console.log(response.payload.available);
+        });
+    }
 
     render() {
         return (

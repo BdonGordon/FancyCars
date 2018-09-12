@@ -1,6 +1,6 @@
 import { ICar, ICarAvailable, IRetrieveCarsAction } from '../models/Car';
 import { CALL_API } from 'redux-api-middleware';
-import { CARS_SERVICE_URL } from '../api/databaseConstants';
+import { CARS_SERVICE_URL, AVAILABILITY_URL } from '../api/databaseConstants';
 
 const GET_CARS_REQUEST = 'cars/GET_CARS_REQUEST';
 const GET_CARS_RESPONSE = 'cars/GET_CARS_RESPONSE';
@@ -41,7 +41,7 @@ export function retrieveCars(): ICallApiAction {
 export function checkAvailability(carID: number): ICallApiAction {
     return {
         [CALL_API]: {
-            endpoint: '/availability?id=',
+            endpoint: `${AVAILABILITY_URL}${carID}`,
             method: 'GET',
             types: [CHECK_AVAILABLE_REQUEST, CHECK_AVAILABLE_RESPONSE, CHECK_AVAILABLE_ERROR],
             headers: {

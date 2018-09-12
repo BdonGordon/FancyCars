@@ -11,6 +11,7 @@ export namespace HomeProps {
 
     export interface IDispatchProps {
         retrieveCars: () => Promise<IRetrieveCarsAction>;
+        checkAvailability: (carID: number) => Promise<ICarAvailable>;
     }
 
     export interface IOwnProps {
@@ -37,7 +38,8 @@ function mapStateToProps(state: any) {
 
 function mapDispatchToProps(dispatch: any) {
     return {
-        retrieveCars: () => dispatch(retrieveCars())
+        retrieveCars: () => dispatch(retrieveCars()),
+        checkAvailability: (carID: number) => dispatch(checkAvailability(carID))
     };
 }
 

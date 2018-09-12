@@ -214,4 +214,5 @@ i {
     background-color: green;
     z-index: 3;
     margin-left: -100px;
+    display: inherit;
 }

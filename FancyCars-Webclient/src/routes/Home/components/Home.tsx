@@ -10,7 +10,8 @@ const initialState: HomeProps.IState = {
     sortType: 'ascending',
     isSortedByAvailability: false,
     isSorting: false,
-    isCarSelected: false
+    isCarSelected: false,
+    carSelected: undefined
 };
 
 class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
@@ -154,7 +155,7 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             <h4>{car.name}</h4>
                             <p><i>Make</i> {car.make}</p>
                             <p><i>Model</i> {car.model}</p>
-                            <button onClick={() => this.handleSelectCar(car.id)} style={{ alignSelf: 'flex-end' }}
+                            <button onClick={() => this.handleSelectCar(car)} style={{ alignSelf: 'flex-end' }}
                                 className={car.available.toUpperCase() === "In Dealership".toUpperCase()
                                 ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
                                 {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}
@@ -171,9 +172,13 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         }
     }
 
-    handleSelectCar(carID: number) {
-        this.props.checkAvailability(carID).then((response) => {
+    handleSelectCar(car: ICar) {
+        this.props.checkAvailability(car.id).then((response) => {
             console.log(response.payload.available);
+            this.setState({
+                isCarSelected: true,
+                carSelected: car
+            });
         });
     }
 
@@ -203,8 +208,9 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 </div>
 
 
-                <div className="dialog-popup">
-                    <label>Heeey</label>
+                <div className="dialog-popup" style={{ display: this.state.isCarSelected ? 'block' : 'none' }}>
+                    {!!this.state.isCarSelected && < label > Our {this.state.carSelected.name} is {this.state.carSelected.available}</label>}
+                        <button onClick={() => { this.setState({ isCarSelected: false }) }}>Closer</button> 
                 </div>
 
 

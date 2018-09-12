@@ -9,7 +9,8 @@ const initialState: HomeProps.IState = {
     isSortedByName: false,
     sortType: 'ascending',
     isSortedByAvailability: false,
-    isSorting: false
+    isSorting: false,
+    isCarSelected: false
 };
 
 class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
@@ -67,7 +68,17 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             }
         }
     }
-    
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({
+            windowWidth: window.innerWidth
+        });
+    }
+
     handleSortByName(sortType?: string): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
@@ -117,16 +128,6 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         return this.props.cars;
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({
-            windowWidth: window.innerWidth
-        });
-    }
-
     renderColumnDimensions(): string {
         if (this.state.windowWidth < 450) {
             return 'repeat(1, 1fr)';
@@ -153,11 +154,11 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             <h4>{car.name}</h4>
                             <p><i>Make</i> {car.make}</p>
                             <p><i>Model</i> {car.model}</p>
-                            <p><button onClick={() => this.handleSelectCar(car.id)}
+                            <button onClick={() => this.handleSelectCar(car.id)} style={{ alignSelf: 'flex-end' }}
                                 className={car.available.toUpperCase() === "In Dealership".toUpperCase()
                                 ? 'available-button' : car.available.toUpperCase() === "Out of Stock".toUpperCase() ? 'out-of-stock-button' : 'unavailable-button'}>
                                 {car.available.toUpperCase() === "In Dealership".toUpperCase() ? "BUY" : car.available.toUpperCase()}
-                            </button></p>
+                            </button>
                         </div>
                     </div>
                 );
@@ -200,6 +201,12 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                         <i className={this.state.sortType === "ascending" ? "descend-arrow" : "ascend-arrow"} /> {this.state.sortType === "ascending" ? "Z-A" : "A-Z"}
                     </label>
                 </div>
+
+
+                <div className="dialog-popup">
+                    <label>Heeey</label>
+                </div>
+
 
                 <div className={isBrowser ? 'car-show' : 'car-show-mobile'} style={{ gridTemplateColumns: this.renderColumnDimensions()}} >
                     {this.renderCarList()}

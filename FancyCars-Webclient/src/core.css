@@ -17,7 +17,8 @@ body, html {
     height: 80px;
     overflow: hidden;
     width: 100%;
-    background-color: darkslategrey;
+    background-color: black;
+    color: white;
     display: flex;
     justify-content: center;
     font-family: 'Tempus Sans ITC';
@@ -76,19 +77,23 @@ body, html {
     left: 28px;
     cursor: pointer;
     display: inherit;
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
 }
 
 .dropdown-button {
     cursor: pointer;
-    background-color: #3498DB;
+    background-color: white;
     padding-bottom: 16px;
     padding-top: 16px;
     padding-left: 28px;
     padding-right: 28px;
     margin-top: 10px;
     border-radius: 8px;
+    font-family: Arial;
     border: none;
-    color: white;
+    color: black;
     font-size: 16px;
 }
 
@@ -132,14 +137,13 @@ body, html {
     margin: 8px;
     text-align: center;
     font-family: Arial;
-    background-color: cadetblue;
     border-radius: 8px;
+    background-color: white;
 }
 
 .card-content {
     flex: 1;
     padding-bottom: 4px;
-    border-width: 4px;
 }
 
 .card-img {
@@ -185,10 +189,12 @@ body, html {
 }
 
 i {
-    border: solid black;
+    border: solid white;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
+    margin-right: 8px;
+
 }
 
 .descend-arrow {
@@ -197,4 +203,15 @@ i {
 
 .ascend-arrow {
     transform: rotate(-135deg);
+}
+
+.dialog-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: green;
+    z-index: 3;
+    margin-left: -100px;
 }

@@ -57,7 +57,9 @@
     <Content Include="src\index.css" />
     <Content Include="src\logo.svg" />
     <Content Include="tsconfig.json" />
-    <Content Include="package.json" />
+    <None Include="package.json">
+      <Publish>False</Publish>
+    </None>
     <Content Include="README.md" />
     <Content Include="tslint.json" />
   </ItemGroup>

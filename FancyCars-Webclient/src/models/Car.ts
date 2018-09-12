@@ -21,7 +21,7 @@ export interface IRetrieveCarsAction extends AnyAction {
     }
 }
 
-export interface ICarAvailable extends AnyAction {
+export interface ICarAvailableAction extends AnyAction {
     error?: boolean;
     payload: {
         available: string;

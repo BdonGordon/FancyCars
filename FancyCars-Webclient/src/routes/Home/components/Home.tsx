@@ -74,8 +74,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         if (!!sortType) {
             if (sortType === 'ascending') {
                 return cars.sort((carOne: ICar, carTwo: ICar) => {
-                    let carOneName = carOne.name.replace(/ /g, '');
-                    let carTwoName = carTwo.name.replace(/ /g, '');
+                    let carOneName = carOne.name.replace(/ /g, '').toUpperCase();
+                    let carTwoName = carTwo.name.replace(/ /g, '').toUpperCase();
 
                     for (let i = 0; i < carOne.name.length - 1; i++) {
                         if (carOneName.charCodeAt(i) !== carTwoName.charCodeAt(i)) {
@@ -86,8 +86,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
             }
             else {
                 return cars.sort((carOne: ICar, carTwo: ICar) => {
-                    let carOneName = carOne.name.replace(/ /g, '');
-                    let carTwoName = carTwo.name.replace(/ /g, '');
+                    let carOneName = carOne.name.replace(/ /g, '').toUpperCase();
+                    let carTwoName = carTwo.name.replace(/ /g, '').toUpperCase();
 
                     for (let i = 0; i < carTwo.name.length-1; i++) {
                         if (carTwoName.charCodeAt(i) !== carOneName.charCodeAt(i)) {

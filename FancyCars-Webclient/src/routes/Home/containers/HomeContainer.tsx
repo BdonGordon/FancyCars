@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Home from '../components/Home';
-import { ICar, ICarAvailable, IRetrieveCarsAction } from '../../../models/Car';
+import { ICar, ICarAvailableAction, IRetrieveCarsAction } from '../../../models/Car';
 import { retrieveCars, checkAvailability } from '../../../modules/car';
 
 export namespace HomeProps {
@@ -11,7 +11,7 @@ export namespace HomeProps {
 
     export interface IDispatchProps {
         retrieveCars: () => Promise<IRetrieveCarsAction>;
-        checkAvailability: (carID: number) => Promise<ICarAvailable>;
+        checkAvailability: (carID: number) => Promise<ICarAvailableAction>;
     }
 
     export interface IOwnProps {

@@ -1,4 +1,4 @@
-import { ICar, ICarAvailable, IRetrieveCarsAction } from '../models/Car';
+import { ICar, ICarAvailableAction, IRetrieveCarsAction } from '../models/Car';
 import { CALL_API } from 'redux-api-middleware';
 import { CARS_SERVICE_URL, AVAILABILITY_URL } from '../api/databaseConstants';
 
@@ -10,7 +10,7 @@ const CHECK_AVAILABLE_REQUEST = 'availability/CHECK_AVAILABLE_REQUEST';
 const CHECK_AVAILABLE_RESPONSE = 'availability/CHECK_AVAILABLE_RESPONSE';
 const CHECK_AVAILABLE_ERROR = 'availability/CHECK_AVAILABLE_ERROR';
 
-type ICarActions = ICarAvailable & IRetrieveCarsAction;
+type ICarActions = ICarAvailableAction & IRetrieveCarsAction;
 
 interface ICarState {
     readonly isFetching: boolean;

@@ -62,7 +62,7 @@ Initializing API Package.json
 2. If successfully installed, double-click on "start"
 --> The API should be running on 
 
---> If the "start" command fails, you must manually open a command prompt and type on the command line:
+--> If the "start" command fails (as a result of a missing node_modules directory), you must manually open a command prompt and type on the command line:
 
 1) workon Dev-Env
 2) python manage.py runserver XXX.XXX.X.XXX:8000 ; where the X's represent your local IPaddress.

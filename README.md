@@ -70,3 +70,12 @@ CONFIGURATION - API
 1. Open command prompt and type "ipconfig" and copy the IPv4 Address (ie. 192.128.0.10)
 2. In FancyCars-API/package.json, edit the "scripts": { "start": } value. Replace the IPaddress with your current one
 --> ie. "start:" "workon Dev-Env && python manage.py runserver XX.XXX.XX.XX:8000"; X's representing your local IPaddress
+
+********************
+SHORTCOMINGS
+********************
+1. The URL is not fancycars.ca because of the lack of hosting. Since I am using localhost, the url is either http://localhost:3000 or http://XXX.XXX.X.XX:3000, where X is the local IP4vAddress.
+2. For the GET response of /availability?id=123, it fails to follow the format. Because I chose to use Django instead of PHP as my back-end, the character '?' is not readable by Django. As a result, I must use the URL format /availability/id=123.
+The URLS for the GET requests are as follows (ip address is made up):
+CarsServers => http://192.128.0.11:8000/fancycars/cars
+AvailabilityService => http://192.128.0.11:8000/fancycars/availability/id=1

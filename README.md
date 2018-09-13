@@ -79,4 +79,5 @@ SHORTCOMINGS
 The URLS for the GET requests are as follows (ip address is made up):
 
 CarsService => http://192.128.0.11:8000/fancycars/cars
+
 AvailabilityService => http://192.128.0.11:8000/fancycars/availability/id=1

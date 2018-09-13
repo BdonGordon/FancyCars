@@ -8,7 +8,7 @@ const initialState: HomeProps.IState = {
     windowWidth: window.innerWidth,
     isSortedByName: false,
     sortType: 'ascending',
-    isSortedByAvailability: '',
+    sortedByAvailabilityType: '',
     isSorting: false,
     isCarSelected: false,
     carSelected: undefined
@@ -47,15 +47,14 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
      * @param previousState
      */
     componentDidUpdate(prevProps: HomeProps.IProps, previousState: HomeProps.IState) {
-        if (previousState.isSortedByAvailability !== this.state.isSortedByAvailability) {
+        if (previousState.sortedByAvailabilityType !== this.state.sortedByAvailabilityType) {
             this.setState({
-                carList: this.handleSortByAvailability(this.state.isSortedByAvailability)
+                carList: this.handleSortByAvailability(this.state.sortedByAvailabilityType)
             })
         }
-        //the condition after the || ensures that if the Availability filter is cleared, then we want to retrieve all the cars and re-render by name
-        if (previousState.isSortedByName !== this.state.isSortedByName || (previousState.isSortedByAvailability !== this.state.isSortedByAvailability && !(!!this.state.isSortedByAvailability))) {
+        if (previousState.isSortedByName !== this.state.isSortedByName) {
             if (this.state.isSortedByName) {
-                if (!!this.state.isSortedByAvailability) {
+                if (!!this.state.sortedByAvailabilityType) {
                     this.setState({
                         carList: this.handleSortByName(this.state.sortType)
                     });
@@ -80,8 +79,6 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 })
             }
         }
-
-        console.log(this.state.isSortedByAvailability);
     }
 
     componentWillUnmount() {
@@ -277,24 +274,24 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                         <label onClick={() => this.setState({
                             /*the logic here is to ensure that if an availability filter is on, and another one is selected, we will set state to
                             that newly clicked one. If we select the one that is already selected, then we clear the filter*/
-                            isSortedByAvailability: this.state.isSortedByAvailability === 'In Dealership' ? '' : 'In Dealership',
+                            sortedByAvailabilityType: this.state.sortedByAvailabilityType === 'In Dealership' ? '' : 'In Dealership',
                             isSorting: false
                         })}
-                            style={{ color: this.state.isSortedByAvailability === 'In Dealership' ? '#3498DB' : '' }}>
+                            style={{ color: this.state.sortedByAvailabilityType === 'In Dealership' ? '#3498DB' : '' }}>
                             In Dealership
                         </label>
                         <label onClick={() => this.setState({
-                            isSortedByAvailability: this.state.isSortedByAvailability  === 'Out of Stock' ? '' : 'Out of Stock',
+                            sortedByAvailabilityType: this.state.sortedByAvailabilityType  === 'Out of Stock' ? '' : 'Out of Stock',
                             isSorting: false
                         })}
-                            style={{ color: this.state.isSortedByAvailability === 'Out of Stock' ? '#3498DB' : '' }}>
+                            style={{ color: this.state.sortedByAvailabilityType === 'Out of Stock' ? '#3498DB' : '' }}>
                             Out of Stock
                         </label>
                         <label onClick={() => this.setState({
-                            isSortedByAvailability: this.state.isSortedByAvailability === 'Unavailable' ? '' : 'Unavailable',
+                            sortedByAvailabilityType: this.state.sortedByAvailabilityType === 'Unavailable' ? '' : 'Unavailable',
                             isSorting: false
                         })}
-                            style={{ color: this.state.isSortedByAvailability === "Unavailable" ? '#3498DB' : '' }}>
+                            style={{ color: this.state.sortedByAvailabilityType === "Unavailable" ? '#3498DB' : '' }}>
                             Unavailable
                         </label>
                     </div>

@@ -50,7 +50,13 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
         if (previousState.sortedByAvailabilityType !== this.state.sortedByAvailabilityType) {
             this.setState({
                 carList: this.handleSortByAvailability(this.state.sortedByAvailabilityType)
-            })
+            });
+            //if the list is still sorted by name, but the availability filter is removed
+            if (this.state.isSortedByName && !(!!this.state.sortedByAvailabilityType)) {
+                this.setState({
+                    carList: this.handleSortByName(this.state.sortType, this.props.cars)
+                });
+            }
         }
         if (previousState.isSortedByName !== this.state.isSortedByName) {
             if (this.state.isSortedByName) {

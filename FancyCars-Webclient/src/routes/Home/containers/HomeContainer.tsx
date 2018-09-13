@@ -25,7 +25,7 @@ export namespace HomeProps {
         isSorting?: boolean;
         isSortedByName?: boolean;
         sortType?: string;
-        isSortedByAvailability?: boolean;
+        isSortedByAvailability?: string;
         isCarSelected?: boolean;
         carSelected?: ICar;
     }

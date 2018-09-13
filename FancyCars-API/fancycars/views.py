@@ -7,8 +7,6 @@ from rest_framework.views import APIView
 def index(request):
     return HttpResponse("Hello")
 
-#http://127.0.0.1:8000/fancycars/cars
-
 class CarsService(APIView):
     def get(self, format=None):
         cars = []
@@ -22,7 +20,7 @@ class CarsService(APIView):
         carSeven = CreateCars(7, "img7", "Lamborghini Aventador LP700-4 LHD", "Lamborghini", "Aventador", 2013, "In Dealership")
         carEight = CreateCars(9, "img9", "Lamborghini Huracan Performante", "Lamborghini", "Huracan Performante", 2017, "Unavailable")
         carNine = CreateCars(8, "img8", "Porsche 911 GT3", "Porsche", "911 GT3", 2014, "In Dealership")
-        carTen = CreateCars(3, "img3", "Rolls-Royce Dawn", "Rolls-Royce", "Dawg", 2017, "Out of Stock")
+        carTen = CreateCars(3, "img3", "Rolls-Royce Dawn", "Rolls-Royce", "Dawn", 2017, "Out of Stock")
         #create the JSON objects for each car then store into the cars array
         cars.append(carOne.createCarObject())
         cars.append(carTwo.createCarObject())

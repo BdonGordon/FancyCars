@@ -8,7 +8,7 @@ const initialState: HomeProps.IState = {
     windowWidth: window.innerWidth,
     isSortedByName: false,
     sortType: 'ascending',
-    isSortedByAvailability: false,
+    isSortedByAvailability: '',
     isSorting: false,
     isCarSelected: false,
     carSelected: undefined
@@ -52,12 +52,19 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 carList: this.handleSortByAvailability(this.state.isSortedByAvailability)
             })
         }
-
-        if (previousState.isSortedByName !== this.state.isSortedByName) {
+        //the condition after the || ensures that if the Availability filter is cleared, then we want to retrieve all the cars and re-render by name
+        if (previousState.isSortedByName !== this.state.isSortedByName || (previousState.isSortedByAvailability !== this.state.isSortedByAvailability && !(!!this.state.isSortedByAvailability))) {
             if (this.state.isSortedByName) {
-                this.setState({
-                    carList: this.handleSortByName(this.state.sortType)
-                })
+                if (!!this.state.isSortedByAvailability) {
+                    this.setState({
+                        carList: this.handleSortByName(this.state.sortType)
+                    });
+                }
+                else {
+                    this.setState({
+                        carList: this.handleSortByName(this.state.sortType, this.props.cars)
+                    });
+                }
             }
             else {
                 this.setState({
@@ -73,6 +80,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                 })
             }
         }
+
+        console.log(this.state.isSortedByAvailability);
     }
 
     componentWillUnmount() {
@@ -92,8 +101,8 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
      * 
      * @param sortType ==> optional. If 'ascending', then the cars will be sorted in ascending alphabetical order ... vise versa for 'descending'
      */
-    handleSortByName(sortType?: string): Array<ICar> {
-        let cars: Array<ICar> = this.state.carList;
+    handleSortByName(sortType?: string, carsFromAvailability?: Array<ICar>): Array<ICar> {
+        let cars: Array<ICar> = !!carsFromAvailability ? carsFromAvailability : this.state.carList;
 
         if (!!sortType) {
             if (sortType === 'ascending') {
@@ -134,15 +143,37 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
      * Self-explanatory
      * @param sorted
      */
-    handleSortByAvailability(sorted: boolean): Array<ICar> {
+    handleSortByAvailability(availablity?: string): Array<ICar> {
         let cars: Array<ICar> = this.state.carList;
 
-        if (sorted) {
-            cars = this.state.carList.filter((car) => {
-                if (car.available.toUpperCase() === 'In Dealership'.toUpperCase()) {
-                    return car;
-                }
-            });
+        if (!!availablity) {
+            if (availablity.toUpperCase() === "In Dealership".toUpperCase()) {
+                cars = this.props.cars.filter((car) => {
+                    if (car.available.toUpperCase() === 'In Dealership'.toUpperCase()) {
+                        return car;
+                    }
+                });
+            }
+            else if (availablity.toUpperCase() === "Out of Stock".toUpperCase()) {
+                cars = this.props.cars.filter((car) => {
+                    if (car.available.toUpperCase() === 'Out of Stock'.toUpperCase()) {
+                        return car;
+                    }
+                });
+            }
+            else if (availablity.toUpperCase() === "Unavailable".toUpperCase()) {
+                cars = this.props.cars.filter((car) => {
+                    if (car.available.toUpperCase() === 'Unavailable'.toUpperCase()) {
+                        return car;
+                    }
+                });
+            }
+
+            //sort names AFTER we get the availability order of the cars
+            if (this.state.isSortedByName) {
+                cars = this.handleSortByName(this.state.sortType, cars);
+            }
+
             return cars;
         }
         return this.props.cars;
@@ -243,9 +274,28 @@ class Home extends React.Component<HomeProps.IProps, HomeProps.IState>{
                             style={{ color: this.state.isSortedByName ? '#3498DB' : '' }}>
                             Name
                         </label>
-                        <label onClick={() => this.setState({ isSortedByAvailability: !this.state.isSortedByAvailability, isSorting: false })}
-                            style={{ color: this.state.isSortedByAvailability ? '#3498DB' : '' }}>
-                            Available
+                        <label onClick={() => this.setState({
+                            /*the logic here is to ensure that if an availability filter is on, and another one is selected, we will set state to
+                            that newly clicked one. If we select the one that is already selected, then we clear the filter*/
+                            isSortedByAvailability: this.state.isSortedByAvailability === 'In Dealership' ? '' : 'In Dealership',
+                            isSorting: false
+                        })}
+                            style={{ color: this.state.isSortedByAvailability === 'In Dealership' ? '#3498DB' : '' }}>
+                            In Dealership
+                        </label>
+                        <label onClick={() => this.setState({
+                            isSortedByAvailability: this.state.isSortedByAvailability  === 'Out of Stock' ? '' : 'Out of Stock',
+                            isSorting: false
+                        })}
+                            style={{ color: this.state.isSortedByAvailability === 'Out of Stock' ? '#3498DB' : '' }}>
+                            Out of Stock
+                        </label>
+                        <label onClick={() => this.setState({
+                            isSortedByAvailability: this.state.isSortedByAvailability === 'Unavailable' ? '' : 'Unavailable',
+                            isSorting: false
+                        })}
+                            style={{ color: this.state.isSortedByAvailability === "Unavailable" ? '#3498DB' : '' }}>
+                            Unavailable
                         </label>
                     </div>
                     <label className='sort-label' style={{ display: this.state.isSortedByName ? 'inline' : 'none' }}
